@@ -1,8 +1,15 @@
 var express = require('express');
 var app = express();
 
-app.get('/', function(req, res){
-  res.send('Hello world');
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
+
+app.get('/hello', function(req, res){
+  res.render('hello', {name:req.query.nameQuery});
+});
+
+app.get('/hello/:nameParam', function(req, res){
+  res.render('hello', {name:req.params.nameParam});
 });
 
 var port = 3000;
